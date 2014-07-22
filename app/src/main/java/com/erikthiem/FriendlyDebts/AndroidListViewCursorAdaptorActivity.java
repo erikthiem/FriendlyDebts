@@ -9,7 +9,7 @@ import android.widget.SimpleCursorAdapter;
 
 public class AndroidListViewCursorAdaptorActivity extends Activity {
 
-    private CountriesDbAdapter dbHelper;
+    private DebtsDbAdapter dbHelper;
     private SimpleCursorAdapter dataAdapter;
 
     @Override
@@ -17,11 +17,11 @@ public class AndroidListViewCursorAdaptorActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        dbHelper = new CountriesDbAdapter(this);
+        dbHelper = new DebtsDbAdapter(this);
         dbHelper.open();
 
         //Clean all data
-        dbHelper.deleteAllCountries();
+        dbHelper.deleteAllDebts();
         //Add some data
         dbHelper.insertSomeDebts();
 
@@ -33,14 +33,14 @@ public class AndroidListViewCursorAdaptorActivity extends Activity {
     private void displayListView() {
 
 
-        Cursor cursor = dbHelper.fetchAllCountries();
+        Cursor cursor = dbHelper.fetchAllDebts();
 
         // The desired columns to be bound
         String[] columns = new String[] {
-                CountriesDbAdapter.KEY_AMOUNT,
-                CountriesDbAdapter.KEY_NAME,
-                CountriesDbAdapter.KEY_DATE,
-                CountriesDbAdapter.KEY_REGION
+                DebtsDbAdapter.KEY_AMOUNT,
+                DebtsDbAdapter.KEY_NAME,
+                DebtsDbAdapter.KEY_DATE,
+                DebtsDbAdapter.KEY_DESCRIPTION
         };
 
         // the XML defined views which the data will be bound to
@@ -48,7 +48,7 @@ public class AndroidListViewCursorAdaptorActivity extends Activity {
                 R.id.amount,
                 R.id.name,
                 R.id.date,
-                R.id.region,
+                R.id.description,
         };
 
         // create the adapter using the cursor pointing to the desired data

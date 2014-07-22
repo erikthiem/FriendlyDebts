@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView3"
         android:layout_below="@+id/textView3"
-        android:text="Region: "
+        android:text="Description:"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -46,12 +46,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:layout_toEndOf="@+id/textView4"
         android:layout_above="@+id/textView4"
-        android:layout_alignLeft="@+id/amount"
-        android:layout_alignStart="@+id/amount" />
+        android:layout_toRightOf="@+id/textView4"
+        android:layout_marginLeft="10dp" />
 
     <TextView
-        android:id="@+id/region"
+        android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView4"
@@ -74,9 +75,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:layout_alignBottom="@+id/textView1"
-        android:layout_toRightOf="@+id/textView1"
         android:layout_toEndOf="@+id/textView1"
-        android:layout_marginLeft="15dp" />
+        android:layout_alignBottom="@+id/textView1"
+        android:layout_alignLeft="@+id/name"
+        android:layout_alignStart="@+id/name" />
 
 </RelativeLayout>

@@ -8,20 +8,21 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class CountriesDbAdapter {
+public class DebtsDbAdapter {
 
     public static final String KEY_ROWID = "_id";
+    public static final String KEY_DEBTOR = "debtor";
     public static final String KEY_AMOUNT = "amount";
     public static final String KEY_NAME = "name";
-    public static final String KEY_DATE = "continent";
-    public static final String KEY_REGION = "region";
+    public static final String KEY_DATE = "date";
+    public static final String KEY_DESCRIPTION = "description";
 
-    private static final String TAG = "CountriesDbAdapter";
+    private static final String TAG = "DebtsDbAdapter";
     private DatabaseHelper mDbHelper;
     private SQLiteDatabase mDb;
 
-    private static final String DATABASE_NAME = "World";
-    private static final String SQLITE_TABLE = "Country";
+    private static final String DATABASE_NAME = "FriendlyDebts";
+    private static final String SQLITE_TABLE = "DebtTable";
     private static final int DATABASE_VERSION = 1;
 
     private final Context mCtx;
@@ -29,11 +30,11 @@ public class CountriesDbAdapter {
     private static final String DATABASE_CREATE =
             "CREATE TABLE if not exists " + SQLITE_TABLE + " (" +
                     KEY_ROWID + " integer PRIMARY KEY autoincrement," +
+                    KEY_DEBTOR + "," +
                     KEY_AMOUNT + "," +
                     KEY_NAME + "," +
                     KEY_DATE + "," +
-                    KEY_REGION + "," +
-                    " UNIQUE (" + KEY_AMOUNT +"));";
+                    KEY_DESCRIPTION + ");";
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -57,11 +58,11 @@ public class CountriesDbAdapter {
         }
     }
 
-    public CountriesDbAdapter(Context ctx) {
+    public DebtsDbAdapter(Context ctx) {
         this.mCtx = ctx;
     }
 
-    public CountriesDbAdapter open() throws SQLException {
+    public DebtsDbAdapter open() throws SQLException {
         mDbHelper = new DatabaseHelper(mCtx);
         mDb = mDbHelper.getWritableDatabase();
         return this;
@@ -73,19 +74,20 @@ public class CountriesDbAdapter {
         }
     }
 
-    public long createCountry(String amount, String name,
-                              String date, String region) {
+    public long createDebt(String debtor, String amount, String name,
+                           String date, String description) {
 
         ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_DEBTOR, debtor);
         initialValues.put(KEY_AMOUNT, amount);
         initialValues.put(KEY_NAME, name);
         initialValues.put(KEY_DATE, date);
-        initialValues.put(KEY_REGION, region);
+        initialValues.put(KEY_DESCRIPTION, description);
 
         return mDb.insert(SQLITE_TABLE, null, initialValues);
     }
 
-    public boolean deleteAllCountries() {
+    public boolean deleteAllDebts() {
 
         int doneDelete = 0;
         doneDelete = mDb.delete(SQLITE_TABLE, null , null);
@@ -94,32 +96,12 @@ public class CountriesDbAdapter {
 
     }
 
-    public Cursor fetchCountriesByName(String inputText) throws SQLException {
-        Log.w(TAG, inputText);
-        Cursor mCursor = null;
-        if (inputText == null  ||  inputText.length () == 0)  {
-            mCursor = mDb.query(SQLITE_TABLE, new String[] {KEY_ROWID,
-                            KEY_AMOUNT, KEY_NAME, KEY_DATE, KEY_REGION},
-                    null, null, null, null, null);
+    public Cursor fetchAllMyDebts() {
 
-        }
-        else {
-            mCursor = mDb.query(true, SQLITE_TABLE, new String[] {KEY_ROWID,
-                            KEY_AMOUNT, KEY_NAME, KEY_DATE, KEY_REGION},
-                    KEY_NAME + " like '%" + inputText + "%'", null,
-                    null, null, null, null);
-        }
-        if (mCursor != null) {
-            mCursor.moveToFirst();
-        }
-        return mCursor;
-
-    }
-
-    public Cursor fetchAllCountries() {
-
-        Cursor mCursor = mDb.query(SQLITE_TABLE, new String[] {KEY_ROWID,
-                        KEY_AMOUNT, KEY_NAME, KEY_DATE, KEY_REGION},
+        String myDebtsSelector = "I";
+//TODO: THERE IS AN ERROR HERE, IT IS NOT RETURNING ANY RESULTS
+        Cursor mCursor = mDb.query(SQLITE_TABLE, new String[] {KEY_ROWID, KEY_DEBTOR,
+                        KEY_AMOUNT, KEY_NAME, KEY_DATE, KEY_DESCRIPTION},
                 null, null, null, null, null);
 
         if (mCursor != null) {
@@ -130,13 +112,13 @@ public class CountriesDbAdapter {
 
     public void insertSomeDebts() {
 
-        createCountry("12.47","Aakash","1/1/2012","Southern and Central Asia");
-        createCountry("13.47","Aakash","2/2/2012","Southern Europe");
-        createCountry("14.47","Aakash","3/3/2012","Northern Africa");
-        createCountry("15.47","Aakash","4/4/2012","Polynesia");
-        createCountry("16.47","Aakash","5/5/2012","Southern Europe");
-        createCountry("17.47","Aakash","6/6/2012","Central Africa");
-        createCountry("18.47","Aakash","7/7/2012","Caribbean");
+        createDebt("12.47", "I", "Aakash", "1/1/2012", "Gas money ");
+        createDebt("14.47", "You", "Aakash", "2/2/2012", "Food money");
+        createDebt("14.47", "I", "Aakash", "3/3/2012", "Gas money");
+        createDebt("15.47", "You", "Aakash", "4/4/2012", "Food money");
+        createDebt("16.47", "You", "Aakash", "5/5/2012", "Gas money");
+        createDebt("17.47", "I", "Aakash", "6/6/2012", "Food money");
+        createDebt("14.47", "I", "Aakash", "7/7/2012", "Drink money");
 
     }
 
