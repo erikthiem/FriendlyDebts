@@ -10,12 +10,17 @@ import android.util.Log;
 
 public class DebtsDbAdapter {
 
+    // Table Row Names
     public static final String KEY_ROWID = "_id";
     public static final String KEY_DEBTOR = "debtor";
     public static final String KEY_AMOUNT = "amount";
     public static final String KEY_NAME = "name";
     public static final String KEY_DATE = "date";
     public static final String KEY_DESCRIPTION = "description";
+
+    // Debtor names
+    public static final String DEBTOR_I = "I";
+    public static final String DEBTOR_YOU = "You";
 
     private static final String TAG = "DebtsDbAdapter";
     private DatabaseHelper mDbHelper;
@@ -98,11 +103,10 @@ public class DebtsDbAdapter {
 
     public Cursor fetchAllMyDebts() {
 
-        String myDebtsSelector = "I";
 //TODO: THERE IS AN ERROR HERE, IT IS NOT RETURNING ANY RESULT
         Cursor mCursor = mDb.query(SQLITE_TABLE, new String[] {KEY_ROWID, KEY_DEBTOR,
                         KEY_AMOUNT, KEY_NAME, KEY_DATE, KEY_DESCRIPTION},
-                null, null, null, null, null);
+                KEY_DEBTOR + " = ?", new String[] { DEBTOR_I }, null, null, null);
 
         if (mCursor != null) {
             mCursor.moveToFirst();
@@ -112,13 +116,13 @@ public class DebtsDbAdapter {
 
     public void insertSomeDebts() {
 
-        createDebt("12.47", "I", "Aakash", "1/1/2012", "Gas money ");
-        createDebt("14.47", "You", "Aakash", "2/2/2012", "Food money");
-        createDebt("14.47", "I", "Aakash", "3/3/2012", "Gas money");
-        createDebt("15.47", "You", "Aakash", "4/4/2012", "Food money");
-        createDebt("16.47", "You", "Aakash", "5/5/2012", "Gas money");
-        createDebt("17.47", "I", "Aakash", "6/6/2012", "Food money");
-        createDebt("14.47", "I", "Aakash", "7/7/2012", "Drink money");
+        createDebt(DEBTOR_I, "12.47", "Aakash", "1/1/2012", "Gas money ");
+        createDebt(DEBTOR_YOU, "14.47", "Alex", "2/2/2012", "Food money");
+        createDebt(DEBTOR_I, "14.47","Aakash", "3/3/2012", "Gas money");
+        createDebt(DEBTOR_YOU, "15.47", "Richard", "4/4/2012", "Food money");
+        createDebt(DEBTOR_YOU, "16.47", "Aakash", "5/5/2012", "Gas money");
+        createDebt(DEBTOR_YOU, "17.47", "Alex", "6/6/2012", "Food money");
+        createDebt(DEBTOR_I, "14.47", "Aakash", "7/7/2012", "Drink money");
 
     }
 
