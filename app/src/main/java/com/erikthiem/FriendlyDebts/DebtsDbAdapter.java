@@ -99,7 +99,7 @@ public class DebtsDbAdapter {
     public Cursor fetchAllMyDebts() {
 
         String myDebtsSelector = "I";
-//TODO: THERE IS AN ERROR HERE, IT IS NOT RETURNING ANY RESULTS
+//TODO: THERE IS AN ERROR HERE, IT IS NOT RETURNING ANY RESULT
         Cursor mCursor = mDb.query(SQLITE_TABLE, new String[] {KEY_ROWID, KEY_DEBTOR,
                         KEY_AMOUNT, KEY_NAME, KEY_DATE, KEY_DESCRIPTION},
                 null, null, null, null, null);

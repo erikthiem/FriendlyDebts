@@ -22,6 +22,7 @@ public class AndroidListViewCursorAdaptorActivity extends Activity {
 
         //Clean all data
         dbHelper.deleteAllDebts();
+
         //Add some data
         dbHelper.insertSomeDebts();
 
@@ -33,10 +34,11 @@ public class AndroidListViewCursorAdaptorActivity extends Activity {
     private void displayListView() {
 
 
-        Cursor cursor = dbHelper.fetchAllDebts();
+        Cursor cursor = dbHelper.fetchAllMyDebts();
 
         // The desired columns to be bound
         String[] columns = new String[] {
+                DebtsDbAdapter.KEY_DEBTOR,
                 DebtsDbAdapter.KEY_AMOUNT,
                 DebtsDbAdapter.KEY_NAME,
                 DebtsDbAdapter.KEY_DATE,
@@ -45,6 +47,7 @@ public class AndroidListViewCursorAdaptorActivity extends Activity {
 
         // the XML defined views which the data will be bound to
         int[] to = new int[] {
+                R.id.debtor,
                 R.id.amount,
                 R.id.name,
                 R.id.date,
@@ -60,7 +63,7 @@ public class AndroidListViewCursorAdaptorActivity extends Activity {
                 to,
                 0);
 
-        ListView listView = (ListView) findViewById(R.id.listView1);
+        ListView listView = (ListView) findViewById(R.id.I_owe_listView);
         // Assign adapter to ListView
         listView.setAdapter(dataAdapter);
 

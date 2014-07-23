@@ -15,11 +15,21 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
+        android:text="Debtor:"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_alignParentStart="false" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView5"
+        android:layout_below="@+id/textView5"
         android:text="Name: "
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -79,5 +89,15 @@
         android:layout_alignBottom="@+id/textView1"
         android:layout_alignLeft="@+id/name"
         android:layout_alignStart="@+id/name" />
+
+    <TextView
+        android:id="@+id/debtor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_toEndOf="@+id/textView2"
+        android:layout_alignBottom="@+id/textView5"
+        android:layout_alignLeft="@+id/amount"
+        android:layout_alignStart="@+id/amount" />
 
 </RelativeLayout>
