@@ -18,7 +18,7 @@ public class DebtsDbAdapter {
     public static final String KEY_DATE = "date";
     public static final String KEY_DESCRIPTION = "description";
 
-    // Debtor names
+    // Debtor categories
     public static final String DEBTOR_I = "I";
     public static final String DEBTOR_YOU = "You";
 
@@ -129,7 +129,7 @@ public class DebtsDbAdapter {
 
 
 
-    public void insertSomeDebts() {
+    public void insertTestDebts() {
 
         createDebt(DEBTOR_I, "12.47", "Aakash", "1/1/2012", "Gas money ");
         createDebt(DEBTOR_YOU, "14.47", "Alex", "2/2/2012", "Food money");

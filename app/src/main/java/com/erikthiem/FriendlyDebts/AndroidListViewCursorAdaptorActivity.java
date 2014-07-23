@@ -16,24 +16,28 @@ public class AndroidListViewCursorAdaptorActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Start the application at the main screen
         setContentView(R.layout.main);
 
+        // Get a reference to the debts database
         dbHelper = new DebtsDbAdapter(this);
         dbHelper.open();
 
-        //Clean all data
+        // Remove all data from the debts database. Will remove this for production.
         dbHelper.deleteAllDebts();
 
-        //Add some data
-        dbHelper.insertSomeDebts();
+        // Add some test data to the debts database.
+        dbHelper.insertTestDebts();
 
-        //Generate ListView from SQLite Database
-        displayListView();
+        // Connect listViews for myDebts and yourDebts to their respective data
+        generateListViews();
 
     }
 
-    private void displayListView() {
+    private void generateListViews() {
 
+        // Create cursors for myDebts and yourDebts to get the data from the database
         Cursor myDebtsCursor = dbHelper.fetchAllMyDebts();
         Cursor yourDebtsCursor = dbHelper.fetchAllYourDebts();
 
@@ -56,35 +60,46 @@ public class AndroidListViewCursorAdaptorActivity extends Activity {
         };
 
         // Create the MyDebts cursor and link it up to the MyDebts data and the MyDebts listView
-
-            myDebtsDataAdapter = new SimpleCursorAdapter(
-                    this, R.layout.debt_info,
-                    myDebtsCursor,
-                    columns,
-                    to,
-                    0);
-
-            // Get a reference to the listView
-            ListView myDebtsListView = (ListView) findViewById(R.id.I_owe_listView);
-
-            // Assign adapter to ListView
-            myDebtsListView.setAdapter(myDebtsDataAdapter);
+        setupMyDebtsCursor(myDebtsCursor, columns, to);
 
 
         // Create the YourDebts cursor and link it up to the MyDebts data and the MyDebts listView
-
-            yourDebtsDataAdapter = new SimpleCursorAdapter(
-                    this, R.layout.debt_info,
-                    yourDebtsCursor,
-                    columns,
-                    to,
-                    0);
-
-            // Get a reference to the listView
-            ListView yourDebtsListView = (ListView) findViewById(R.id.you_owe_listView);
-
-            // Assign adapter to ListView
-            yourDebtsListView.setAdapter(yourDebtsDataAdapter);
+        setupYourDebtsCursor(yourDebtsCursor, columns, to);
 
     }
+
+    private void setupMyDebtsCursor(Cursor myDebtsCursor, String[] columns, int[] to)
+    {
+        // Create a data cursor adapter for myDebts
+        myDebtsDataAdapter = new SimpleCursorAdapter(
+                this, R.layout.debt_info,
+                myDebtsCursor,
+                columns,
+                to,
+                0);
+
+        // Get a reference to the listView
+        ListView myDebtsListView = (ListView) findViewById(R.id.I_owe_listView);
+
+        // Assign adapter to ListView
+        myDebtsListView.setAdapter(myDebtsDataAdapter);
+    }
+
+    private void setupYourDebtsCursor(Cursor yourDebtsCursor, String[] columns, int[] to)
+    {
+        // Create a data cursor adapter for yourDebts
+        yourDebtsDataAdapter = new SimpleCursorAdapter(
+                this, R.layout.debt_info,
+                yourDebtsCursor,
+                columns,
+                to,
+                0);
+
+        // Get a reference to the listView
+        ListView yourDebtsListView = (ListView) findViewById(R.id.you_owe_listView);
+
+        // Assign adapter to ListView
+        yourDebtsListView.setAdapter(yourDebtsDataAdapter);
+    }
 }
+
