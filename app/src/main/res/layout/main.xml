@@ -1,29 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent" android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:weightSum="2"
     android:orientation="vertical">
 
-    <TextView android:layout_width="fill_parent"
-        android:layout_height="wrap_content" android:padding="10dp"
-        android:text="I owe..." android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <ListView android:id="@+id/I_owe_listView" android:layout_width="fill_parent"
-        android:layout_height="216dp" />
-
-    <TextView
-        android:layout_width="fill_parent"
+    <LinearLayout android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="You owe..."
-        android:textSize="20sp"
-        android:id="@+id/textView"
-        android:layout_marginTop="0dp"
-        android:textStyle="bold" />
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/you_owe_listView"
-        android:layout_width="fill_parent"
-        android:layout_height="217dp" />
+
+        <TextView android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:padding="10dp"
+            android:text="I owe..." android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ListView android:id="@+id/I_owe_listView" android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="You owe..."
+            android:textSize="20sp"
+            android:id="@+id/textView"
+            android:layout_marginTop="0dp"
+            android:textStyle="bold" />
+
+        <ListView
+            android:id="@+id/you_owe_listView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+    </LinearLayout>
 
 </LinearLayout>
