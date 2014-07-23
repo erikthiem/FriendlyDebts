@@ -10,7 +10,8 @@ import android.widget.SimpleCursorAdapter;
 public class AndroidListViewCursorAdaptorActivity extends Activity {
 
     private DebtsDbAdapter dbHelper;
-    private SimpleCursorAdapter dataAdapter;
+    private SimpleCursorAdapter myDebtsDataAdapter;
+    private SimpleCursorAdapter yourDebtsDataAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,8 +34,8 @@ public class AndroidListViewCursorAdaptorActivity extends Activity {
 
     private void displayListView() {
 
-
-        Cursor cursor = dbHelper.fetchAllMyDebts();
+        Cursor myDebtsCursor = dbHelper.fetchAllMyDebts();
+        Cursor yourDebtsCursor = dbHelper.fetchAllYourDebts();
 
         // The desired columns to be bound
         String[] columns = new String[] {
@@ -54,18 +55,36 @@ public class AndroidListViewCursorAdaptorActivity extends Activity {
                 R.id.description,
         };
 
-        // create the adapter using the cursor pointing to the desired data
-        //as well as the layout information
-        dataAdapter = new SimpleCursorAdapter(
-                this, R.layout.country_info,
-                cursor,
-                columns,
-                to,
-                0);
+        // Create the MyDebts cursor and link it up to the MyDebts data and the MyDebts listView
 
-        ListView listView = (ListView) findViewById(R.id.I_owe_listView);
-        // Assign adapter to ListView
-        listView.setAdapter(dataAdapter);
+            myDebtsDataAdapter = new SimpleCursorAdapter(
+                    this, R.layout.debt_info,
+                    myDebtsCursor,
+                    columns,
+                    to,
+                    0);
+
+            // Get a reference to the listView
+            ListView myDebtsListView = (ListView) findViewById(R.id.I_owe_listView);
+
+            // Assign adapter to ListView
+            myDebtsListView.setAdapter(myDebtsDataAdapter);
+
+
+        // Create the YourDebts cursor and link it up to the MyDebts data and the MyDebts listView
+
+            yourDebtsDataAdapter = new SimpleCursorAdapter(
+                    this, R.layout.debt_info,
+                    yourDebtsCursor,
+                    columns,
+                    to,
+                    0);
+
+            // Get a reference to the listView
+            ListView yourDebtsListView = (ListView) findViewById(R.id.you_owe_listView);
+
+            // Assign adapter to ListView
+            yourDebtsListView.setAdapter(yourDebtsDataAdapter);
 
     }
 }

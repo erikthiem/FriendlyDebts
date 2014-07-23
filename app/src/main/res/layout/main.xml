@@ -22,7 +22,7 @@
         android:textStyle="bold" />
 
     <ListView
-        android:id="@+id/listView2"
+        android:id="@+id/you_owe_listView"
         android:layout_width="fill_parent"
         android:layout_height="217dp" />
 

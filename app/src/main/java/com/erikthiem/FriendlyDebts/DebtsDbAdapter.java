@@ -103,22 +103,37 @@ public class DebtsDbAdapter {
 
     public Cursor fetchAllMyDebts() {
 
-//TODO: THERE IS AN ERROR HERE, IT IS NOT RETURNING ANY RESULT
-        Cursor mCursor = mDb.query(SQLITE_TABLE, new String[] {KEY_ROWID, KEY_DEBTOR,
+        Cursor myDebtsCursor = mDb.query(SQLITE_TABLE, new String[] {KEY_ROWID, KEY_DEBTOR,
                         KEY_AMOUNT, KEY_NAME, KEY_DATE, KEY_DESCRIPTION},
                 KEY_DEBTOR + " = ?", new String[] { DEBTOR_I }, null, null, null);
 
-        if (mCursor != null) {
-            mCursor.moveToFirst();
+        if (myDebtsCursor != null) {
+            myDebtsCursor.moveToFirst();
         }
-        return mCursor;
+
+        return myDebtsCursor;
     }
+
+    public Cursor fetchAllYourDebts() {
+
+        Cursor yourDebtsCursor = mDb.query(SQLITE_TABLE, new String[] {KEY_ROWID, KEY_DEBTOR,
+                        KEY_AMOUNT, KEY_NAME, KEY_DATE, KEY_DESCRIPTION},
+                KEY_DEBTOR + " = ?", new String[] { DEBTOR_YOU }, null, null, null);
+
+        if (yourDebtsCursor != null) {
+            yourDebtsCursor.moveToFirst();
+        }
+
+        return yourDebtsCursor;
+    }
+
+
 
     public void insertSomeDebts() {
 
         createDebt(DEBTOR_I, "12.47", "Aakash", "1/1/2012", "Gas money ");
         createDebt(DEBTOR_YOU, "14.47", "Alex", "2/2/2012", "Food money");
-        createDebt(DEBTOR_I, "14.47","Aakash", "3/3/2012", "Gas money");
+        createDebt(DEBTOR_I, "14.47","Johns", "3/3/2012", "Gas money");
         createDebt(DEBTOR_YOU, "15.47", "Richard", "4/4/2012", "Food money");
         createDebt(DEBTOR_YOU, "16.47", "Aakash", "5/5/2012", "Gas money");
         createDebt(DEBTOR_YOU, "17.47", "Alex", "6/6/2012", "Food money");
